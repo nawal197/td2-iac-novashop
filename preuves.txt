@@ -1,0 +1,41 @@
+=== terraform plan (derniere ligne) ===
+[0m[1m[32mNo changes.[0m[1m Your infrastructure matches the configuration.[0m
+
+=== terraform output ===
+vm_name = "k3s-nawal"
+floating_ip = "172.24.4.142"
+private_ip = "10.10.10.129"
+ssh_command = "ssh ubuntu@172.24.4.142"
+
+=== helm list -n td2 ===
+NAME    	NAMESPACE	REVISION	UPDATED                                	STATUS  	CHART         	APP VERSION
+backend 	td2      	2       	2026-10-21 11:46:46.783767642 +0000 UTC	deployed	backend-0.1.0 	1.16.0     
+frontend	td2      	2       	2026-10-21 11:46:47.767191586 +0000 UTC	deployed	frontend-0.1.0	1.16.0     
+postgres	td2      	2       	2026-10-21 11:46:45.725945633 +0000 UTC	deployed	postgres-0.1.0	1.16.0     
+
+=== kubectl get pods,svc,ingress ===
+NAME                           READY   STATUS    RESTARTS   AGE
+pod/backend-665d65c888-9pdgx   1/1     Running   0          10m
+pod/backend-665d65c888-mm75n   1/1     Running   0          10m
+pod/frontend-f6b9c579b-hj7z4   1/1     Running   0          2m38s
+pod/frontend-f6b9c579b-w7cn7   1/1     Running   0          7m37s
+pod/postgres-0                 1/1     Running   0          14m
+
+NAME               TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/backend    ClusterIP   10.43.82.110    <none>        5000/TCP   10m
+service/frontend   ClusterIP   10.43.103.103   <none>        80/TCP     7m37s
+service/postgres   ClusterIP   None            <none>        5432/TCP   14m
+
+NAME                                 CLASS     HOSTS   ADDRESS        PORTS   AGE
+ingress.networking.k8s.io/frontend   traefik   *       10.10.10.129   80      7m37s
+
+=== X-Pod-Name ===
+X-Pod-Name: frontend-f6b9c579b-w7cn7
+X-Pod-Name: frontend-f6b9c579b-hj7z4
+X-Pod-Name: frontend-f6b9c579b-w7cn7
+X-Pod-Name: frontend-f6b9c579b-hj7z4
+X-Pod-Name: frontend-f6b9c579b-w7cn7
+X-Pod-Name: frontend-f6b9c579b-hj7z4
+
+=== /api/items ===
+{"pod": "backend-665d65c888-mm75n", "items": [{"id": 1, "name": "item-alpha"}, {"id": 2, "name": "item-beta"}, {"id": 3, "name": "item-gamma"}]}
